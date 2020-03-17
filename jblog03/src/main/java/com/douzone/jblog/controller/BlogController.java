@@ -12,4 +12,19 @@ public class BlogController {
 	public String blogMain() {
 		return "blog/blog-main";
 	}
+	
+	@RequestMapping(value="/blog-admin-basic", method=RequestMethod.GET)
+	public String blogAdminBasic() {
+		return "blog/blog-admin-basic";
+	}
+	
+	@RequestMapping(value="/blog-admin-category", method=RequestMethod.GET)
+	public String blogAdminCategory() {
+		return "blog/blog-admin-category";
+	}
+	
+	@RequestMapping(value="/blog-admin-write", method=RequestMethod.GET)
+	public String blogAdminWrite() {
+		return "blog/blog-admin-write";
+	}
 }
