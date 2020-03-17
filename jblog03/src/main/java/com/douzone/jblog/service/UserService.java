@@ -12,9 +12,13 @@ public class UserService {
 	private UserRepository userRepository; 
 	
 	public void join(UserVo userVo) {
-		System.out.println("1" + userVo);
 		userRepository.join(userVo);
 		
+	}
+
+	public UserVo findByEmailAndPassword(UserVo userVo) {
+		
+		return userRepository.findByEmailAndPassword(userVo);
 	}
 
 }

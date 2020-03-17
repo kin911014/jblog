@@ -12,7 +12,12 @@ public class UserRepository {
 	private SqlSession sqlSession; 
 	
 	public void join(UserVo userVo) {
-		System.out.println("2" + userVo);
 		sqlSession.insert("user.join", userVo);
+	}
+
+	public UserVo findByEmailAndPassword(UserVo userVo) {
+		
+		return sqlSession.selectOne("user.findByEmailAndPassword", userVo);
+		
 	}
 }
