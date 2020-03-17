@@ -3,11 +3,7 @@
 <mapper namespace="user">
 	<select id="join" parameterType="uservo">
 		<![CDATA[
-		insert into user value
-		(id=#{id}, 
-		name=#{name}, 
-		password=#{password}, 
-		join_date=current_date())
+		insert into user values(#{id}, #{name}, #{password}, now())
 		]]>
 	</select>
 <!-- 	<insert id="insertContents" parameterType="uservo"> -->
