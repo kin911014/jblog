@@ -28,7 +28,7 @@ public class UserController {
 			return "user/login";
 		}
 		session.setAttribute("authUser", authUser);
-		return "/blog/blog-main";
+		return "main/index";
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
@@ -40,6 +40,20 @@ public class UserController {
 	public String join(UserVo userVo) {
 		userService.join(userVo);
 		return "user/joinsuccess";
+	}
+	
+	@RequestMapping(value="/logout")
+	public String logout(HttpSession session) {
+		//////////////////////접근제어////////////////////////////////
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		////////////////////////////////////////////////////
+		
+		session.removeAttribute("authUser");
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 }
