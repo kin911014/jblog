@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<select id="join" parameterType="uservo">
+		<![CDATA[
+		insert into user value
+		(id=#{id}, 
+		name=#{name}, 
+		password=#{password}, 
+		join_date=current_date())
+		]]>
+	</select>
+<!-- 	<insert id="insertContents" parameterType="uservo"> -->
+<!-- 		<if test="depth == 0"> -->
+<!-- 			<![CDATA[ -->
+				
+<!-- 				insert -->
+<!-- 					into board values(  -->
+<!-- 					null,  -->
+<!-- 					#{title},  -->
+<!-- 					#{contents},  -->
+<!-- 					0,  -->
+<!-- 					now(),  -->
+<!-- 					(select ifnull(max(b.g_no),0)+1 from board b),  -->
+<!-- 					1, -->
+<!-- 					0,  -->
+<!-- 					#{userNo}) -->
+<!-- 			]]> -->
+<!-- 		</if> -->
+<!-- 		<if test="depth >= 1"> -->
+<!-- 			<![CDATA[ -->
+<!-- 				insert -->
+<!-- 					into board values(  -->
+<!-- 					null,  -->
+<!-- 					?,  -->
+<!-- 					?,  -->
+<!-- 					0,  -->
+<!-- 					now(),  -->
+<!-- 					?,  -->
+<!-- 					?+1, -->
+<!-- 					?+1, -->
+<!-- 					?) -->
+<!-- 			]]> -->
+<!-- 		</if> -->
+<!-- 	</insert> -->
+<!-- 	<select id="findByNo" parameterType="boardvo" resultType="boardvo"> -->
+<!-- 		<![CDATA[ -->
+<!-- 			select a.no, a.title, a.contents, a.hit, a.g_no as gNo, -->
+<!-- 			 a.o_no as oNo, a.depth, a.user_no as userNo  -->
+<!-- 			from board a, user b  -->
+<!-- 			where a.no = #{no }  -->
+<!-- 			and a.user_no = b.no -->
+<!-- 		]]> -->
+<!-- 	</select> -->
+<!-- 	<update id="update" parameterType="boardvo"> -->
+<!-- 		<![CDATA[ -->
+<!-- 			update board -->
+<!-- 			 set title = #{title},  -->
+<!-- 			 contents = #{contents} -->
+<!-- 			 where no = #{no} -->
+<!-- 		]]> -->
+<!-- 	</update> -->
+<!-- 	<insert id="ReplyInsert" parameterType="boardvo"> -->
+<!-- 		<![CDATA[ -->
+<!-- 			insert -->
+<!-- 				into board values(  -->
+<!-- 				null,  -->
+<!-- 				?,  -->
+<!-- 				?,  -->
+<!-- 				0,  -->
+<!-- 				now(),  -->
+<!-- 				?,  -->
+<!-- 				?+1, -->
+<!-- 				?+1, -->
+<!-- 				?) -->
+<!-- 		]]> -->
+<!-- 	</insert> -->
+</mapper>
