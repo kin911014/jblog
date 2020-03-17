@@ -39,7 +39,7 @@ public class UserController {
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(UserVo userVo) {
 		userService.join(userVo);
-		return "user/join";
+		return "user/joinsuccess";
 	}
 	
 }
