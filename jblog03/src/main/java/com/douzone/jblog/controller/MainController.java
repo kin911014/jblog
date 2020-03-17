@@ -10,7 +10,4 @@ public class MainController {
 	public String index() {
 		return "main/index";
 	}
-//	public String indexx() {
-//		return "시작";
-//	}
 }
