@@ -15,7 +15,7 @@
 	
 	<select id="findFileName" parameterType="blogvo" resultType="blogvo">
 		<![CDATA[
-		select logo from blog where id=#{id}
+		select title, logo from blog where id=#{id}
 		]]>
 	</select>
 	

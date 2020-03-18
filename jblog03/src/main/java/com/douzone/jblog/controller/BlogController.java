@@ -40,12 +40,14 @@ public class BlogController {
 		}
 	//////////////////////접근제한//////////////////////////////
 		
+		// 
 		String id = authUser.getId();
 		blogVo.setId(id);
-		
-		BlogVo name = blogService.findFileName(blogVo);
-		String url = name.getLogo();
+		BlogVo vo = blogService.findFileName(blogVo);
+		String url = vo.getLogo();
+		String title = vo.getTitle();
 		model.addAttribute("url", url);
+		model.addAttribute("title", title);
 		
 		return "blog/blog-admin-basic";
 	}

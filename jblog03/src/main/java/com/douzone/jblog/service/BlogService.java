@@ -17,9 +17,8 @@ public class BlogService {
 	}
 
 	public BlogVo findFileName(BlogVo blogVo) {
-		BlogVo name = blogRepository.findFileName(blogVo);
-		System.out.println("name1 "+name);
-		return name;
+		BlogVo vo = blogRepository.findFileName(blogVo);
+		return vo;
 	}
 
 //	public String findFileName(BlogVo blogVo) {

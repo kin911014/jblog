@@ -21,9 +21,8 @@ public class BlogRepository {
 	}
 
 	public BlogVo findFileName(BlogVo blogVo) {
-		BlogVo name = sqlSession.selectOne("blog.findFileName", blogVo);
-		System.out.println("name1 "+name);
-		return name;
+		BlogVo vo = sqlSession.selectOne("blog.findFileName", blogVo);
+		return vo;
 	}
 
 //	public String findFileName(BlogVo blogVo) {
