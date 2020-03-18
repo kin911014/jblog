@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.douzone.jblog.repository.BlogRepository;
 import com.douzone.jblog.vo.BlogVo;
-import com.douzone.jblog.vo.PostVo;
 
 @Service
 public class BlogService {
