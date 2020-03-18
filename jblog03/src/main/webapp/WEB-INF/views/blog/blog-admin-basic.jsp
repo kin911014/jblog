@@ -25,12 +25,10 @@
 			      			<td class="t">블로그 제목</td>
 			      			<td><input type="text" size="40" name="title"></td>
 			      		</tr>
-			      		<c:if test="${empty authUser }">
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}${url }"></td>      			
+			      			<td><img src="${pageContext.request.contextPath}/images/${url }"></td>      			
 			      		</tr>      		
-			      		</c:if>
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
 			      			<td><input type="file" name="logo"></td>      			

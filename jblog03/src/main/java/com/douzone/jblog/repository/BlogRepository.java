@@ -19,6 +19,20 @@ public class BlogRepository {
 	public void upload(BlogVo blogVo) {
 		sqlSession.insert("blog.upload", blogVo);
 	}
+
+	public BlogVo findFileName(BlogVo blogVo) {
+		BlogVo name = sqlSession.selectOne("blog.findFileName", blogVo);
+		System.out.println("name1 "+name);
+		return name;
+	}
+
+//	public String findFileName(BlogVo blogVo) {
+//		return sqlSession.selectOne("blog.findFileName", blogVo);
+//	}
+
+//	public BlogVo findFileName(BlogVo blogVo) {
+//		return sqlSession.selectOne("blog.findFileName", blogVo);
+//	}
 	
 //	public int write(PostVo postVo) {
 //		

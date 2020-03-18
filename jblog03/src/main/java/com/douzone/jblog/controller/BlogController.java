@@ -31,7 +31,21 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="/blog-admin-basic", method=RequestMethod.GET)
-	public String blogAdminBasic() {
+	public String blogAdminBasic(BlogVo blogVo, Model model, HttpSession session) {
+	//////////////////////접근제한//////////////////////////////
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		System.out.println("postauthuser " + authUser);
+		if(authUser == null) {
+		return "redirect:/";
+		}
+	//////////////////////접근제한//////////////////////////////
+		
+		String id = authUser.getId();
+		blogVo.setId(id);
+		
+		BlogVo name = blogService.findFileName(blogVo);
+		String url = name.getLogo();
+		model.addAttribute("url", url);
 		
 		return "blog/blog-admin-basic";
 	}
@@ -46,29 +60,24 @@ public class BlogController {
 		
 		//////////////////////접근제한//////////////////////////////
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		System.out.println("postauthuser " + authUser);
 		if(authUser == null) {
 			return "redirect:/";
 		}
 		//////////////////////접근제한//////////////////////////////
 		
-		BlogVo blogVo = new BlogVo();
-		String logo = multipartFile.getOriginalFilename();
+		// 사진 url
+		String url = fileUploadService.restore(multipartFile);
+		model.addAttribute("url", url);
 		
+		BlogVo blogVo = new BlogVo();
 		String id = authUser.getId();
 		blogVo.setId(id);
 		blogVo.setTitle(title);
-		blogVo.setLogo(logo);
+		blogVo.setLogo(url);
 		
-		System.out.println(blogVo.getId()+" " + blogVo.getTitle()+" " + blogVo.getLogo());
 		blogService.upload(blogVo);
 
-		
-		
-		// 사진 url
-		String url = fileUploadService.restore(multipartFile);
-		System.out.println(url);
-		model.addAttribute("url", url);
-		
 		return "/blog/blog-admin-basic";
 	}
 	

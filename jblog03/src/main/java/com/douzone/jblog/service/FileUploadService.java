@@ -28,6 +28,7 @@ public class FileUploadService {
 			long fileSize = multipartFile.getSize();
 
 			System.out.println("###########" + originFilename);
+			System.out.println("###########" + extName);
 			System.out.println("######### " + saveFilename);
 			System.out.println("###########" + fileSize);
 
@@ -36,7 +37,7 @@ public class FileUploadService {
 			os.write(fileData);
 			os.close();
 
-			url = URL + "/" + saveFilename;
+			url = saveFilename;
 
 		} catch (IOException ex) {
 			throw new RuntimeException("file upload error" + ex);
