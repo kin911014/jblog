@@ -25,13 +25,6 @@ public class BlogRepository {
 		return vo;
 	}
 
-//	public String findFileName(BlogVo blogVo) {
-//		return sqlSession.selectOne("blog.findFileName", blogVo);
-//	}
-
-//	public BlogVo findFileName(BlogVo blogVo) {
-//		return sqlSession.selectOne("blog.findFileName", blogVo);
-//	}
 	
 //	public int write(PostVo postVo) {
 //		

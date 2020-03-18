@@ -21,13 +21,6 @@ public class BlogService {
 		return vo;
 	}
 
-//	public String findFileName(BlogVo blogVo) {
-//		String test1 = blogRepository.findFileName(blogVo);
-//		 System.out.println("test1 " + test1);
-//		 return test1;
-//		
-//	}
-
 
 //	public int write(PostVo postVo) {
 //		

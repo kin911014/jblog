@@ -26,7 +26,21 @@ public class BlogController {
 	@Autowired
 	private BlogService blogService;
 	@RequestMapping(value="/blog-main", method=RequestMethod.GET)
-	public String blogMain() {
+	public String blogMain(BlogVo blogVo, Model model, HttpSession session) {
+		//////////////////////접근제한//////////////////////////////
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		//if(authUser == null) {
+		//return "redirect:/";
+		//}
+		//////////////////////접근제한//////////////////////////////
+		String id = authUser.getId();
+		System.out.println("id1 "+id);
+		blogVo.setId(id);
+		BlogVo vo = blogService.findFileName(blogVo);
+		String url = vo.getLogo();
+		model.addAttribute("url", url);
+
+		
 		return "blog/blog-main";
 	}
 	
@@ -34,13 +48,11 @@ public class BlogController {
 	public String blogAdminBasic(BlogVo blogVo, Model model, HttpSession session) {
 	//////////////////////접근제한//////////////////////////////
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		System.out.println("postauthuser " + authUser);
 		if(authUser == null) {
 		return "redirect:/";
 		}
 	//////////////////////접근제한//////////////////////////////
 		
-		// 
 		String id = authUser.getId();
 		blogVo.setId(id);
 		BlogVo vo = blogService.findFileName(blogVo);
@@ -62,7 +74,6 @@ public class BlogController {
 		
 		//////////////////////접근제한//////////////////////////////
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		System.out.println("postauthuser " + authUser);
 		if(authUser == null) {
 			return "redirect:/";
 		}
@@ -80,12 +91,14 @@ public class BlogController {
 		
 		blogService.upload(blogVo);
 
-		return "/blog/blog-admin-basic";
+		return "/blog/blog-main";
 	}
 	
 	@RequestMapping(value="/blog-admin-category", method=RequestMethod.GET)
 	public String blogAdminCategory() {
 		return "blog/blog-admin-category";
+
+		
 	}
 	
 	@RequestMapping(value="/blog-admin-write", method=RequestMethod.GET)
