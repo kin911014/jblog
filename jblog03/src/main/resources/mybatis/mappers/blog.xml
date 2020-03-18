@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="category">
-	<select id="write" parameterType="categoryvo" resultType="categoryvo">
+<mapper namespace="blog">
+	<!-- <select id="write" parameterType="categoryvo" resultType="categoryvo">
 		<![CDATA[
 		insert into user values(#{id}, #{name}, #{password}, now())
 		]]>
+	</select> -->
+	
+	<select id="upload" parameterType="blogvo" >
+		<![CDATA[
+		update into blog values(#{id}, #{title}, #{logo})
+		]]>
 	</select>
+	
+	
+	
+	
 	
 <!-- 	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo"> -->
 <!-- 		<![CDATA[ -->
@@ -57,19 +67,5 @@
 <!-- 			 where no = #{no} -->
 <!-- 		]]> -->
 <!-- 	</update> -->
-<!-- 	<insert id="ReplyInsert" parameterType="boardvo"> -->
-<!-- 		<![CDATA[ -->
-<!-- 			insert -->
-<!-- 				into board values(  -->
-<!-- 				null,  -->
-<!-- 				?,  -->
-<!-- 				?,  -->
-<!-- 				0,  -->
-<!-- 				now(),  -->
-<!-- 				?,  -->
-<!-- 				?+1, -->
-<!-- 				?+1, -->
-<!-- 				?) -->
-<!-- 		]]> -->
-<!-- 	</insert> -->
+	
 </mapper>
