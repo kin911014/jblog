@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.vo.PostVo;
 
 @Controller
@@ -32,7 +33,7 @@ public class BlogController {
 		return "blog/blog-admin-write";
 	}
 	
-	@RequestMapping(value="/blog-admin-write", method=RequestMethod.GET)
+	@RequestMapping(value="/blog-admin-write", method=RequestMethod.POST)
 	public String blogAdminWrite(PostVo postVo) {
 //		int blogWrite = blogService.write(postVo);
 		return "blog/blog-admin-write";
