@@ -18,6 +18,7 @@
 		select no, name, description, reg_date as regDate, id
 		from category
 		where id = #{id}
+		order by no desc
 		]]>
 	</select>
 	

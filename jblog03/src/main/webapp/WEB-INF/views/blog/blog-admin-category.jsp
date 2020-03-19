@@ -41,6 +41,7 @@
 						<td>어쩌구 저쩌구</td>
 						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
 					</tr>
+					<c:forEach var="getValue" items="${getValues }" varStatus="status">
 					<tr>
 						<td>${getValue.no }</td>
 						<td>${getValue.name }</td>
@@ -48,6 +49,7 @@
 						<td>${getValue.description }</td>
 						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
 					</tr>					  
+					</c:forEach>
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>

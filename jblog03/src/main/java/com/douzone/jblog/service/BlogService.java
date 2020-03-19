@@ -1,5 +1,7 @@
 package com.douzone.jblog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +24,11 @@ public class BlogService {
 		return vo;
 	}
 
-	public CategoryVo categoryGet(CategoryVo categoryVo) {
-		CategoryVo getValue = blogRepository.categoryGet(categoryVo); 
-		return getValue;
+	public List<CategoryVo> categoryGet(CategoryVo categoryVo) {
+		List<CategoryVo> getValues = (List<CategoryVo>) blogRepository.categoryGet(categoryVo); 
+		return getValues;
 	}
-
-
+ 
 //	public int write(PostVo postVo) {
 //		
 //		return blogRepository.write(postVo);

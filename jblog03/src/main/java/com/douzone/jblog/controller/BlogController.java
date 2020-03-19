@@ -1,5 +1,7 @@
 package com.douzone.jblog.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,9 +101,15 @@ public class BlogController {
 			return "redirect:/";
 		}
 		categoryVo.setId(authUser.getId());
-		CategoryVo getValue = blogService.categoryGet(categoryVo);
-		model.addAttribute("getValue", getValue);
+		List<CategoryVo> getValues = blogService.categoryGet(categoryVo);
+		System.out.println(getValues);
+		model.addAttribute("getValues", getValues);
 		
+		return "blog/blog-admin-category";
+	}
+	
+	@RequestMapping(value="/blog-admin-category", method=RequestMethod.POST)
+	public String blogAdminCategory() {
 		
 		return "blog/blog-admin-category";
 	}
