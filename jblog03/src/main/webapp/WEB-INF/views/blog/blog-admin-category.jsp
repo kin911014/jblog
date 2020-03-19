@@ -35,9 +35,12 @@
 						<td>${getValue.postCount }</td>
 						<td>${getValue.description }</td>
 						<td>
-						<a href="${pageContext.request.contextPath}/blog/blog-admin-category/${getValue.no}">
-						<img src="${pageContext.request.contextPath}/assets/images/delete.jpg">
+						<c:if test="${getValue.postCount == 0 }">
+						
+							<a href="${pageContext.request.contextPath}/blog/blog-admin-category/${getValue.no}">
+							<img src="${pageContext.request.contextPath}/assets/images/delete.jpg">
 						</a>
+						</c:if>
 						</td>
 					</tr>					  
 					</c:forEach>
