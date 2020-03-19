@@ -1,12 +1,14 @@
 package com.douzone.jblog.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +23,7 @@ import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
 
 @Controller
-@RequestMapping("/blog")
+@RequestMapping("/{id:(?!assets).*}")
 public class BlogController {
 	
 	@Autowired
@@ -30,15 +32,35 @@ public class BlogController {
 	@Autowired
 	private BlogService blogService;
 	
-	@RequestMapping(value="/blog-main", method=RequestMethod.GET)
-	public String blogMain(BlogVo blogVo, Model model, HttpSession session) {
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser != null) {
-			String id = authUser.getId();
-			blogVo.setId(id);
-			BlogVo vo = blogService.findFileName(blogVo);
-			String url = vo.getLogo();
-			model.addAttribute("url", url);
+	@RequestMapping({ "", "/{pathNo1}", "/{pathNo1}/{pathNo2}" })
+	public String blogMain( 
+//			BlogVo blogVo, Model model, HttpSession session, CategoryVo categoryVo
+			Model model,
+			@PathVariable String id, 
+			@PathVariable Optional<Long> pathNo1,
+			@PathVariable Optional<Long> pathNo2, 
+			ModelMap modelMap
+			) {
+		
+		Long categoryNo = 0L;
+		Long postNo = 0L;
+		
+//		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		
+		if(id != null) {
+		BlogVo blogVo = new BlogVo();
+		blogVo.setId(id);
+		BlogVo vo = blogService.findFileName(blogVo);
+		String url = vo.getLogo();
+		model.addAttribute("url", url);
+			
+//		categoryVo.setId(authUser.getId());
+//		System.out.println("1 "+categoryVo);
+//		List<CategoryVo> getValues = blogService.categoryPostCount(categoryVo);
+//		System.out.println("2 "+categoryVo);
+//		model.addAttribute("getValues", getValues);
+			
+			
 			return "blog/blog-main";
 		}else {
 			
@@ -107,9 +129,7 @@ public class BlogController {
 //		model.addAttribute("getValues", getValues);
 		
 		categoryVo.setId(authUser.getId());
-		System.out.println("1 "+categoryVo);
 		List<CategoryVo> getValues = blogService.categoryPostCount(categoryVo);
-		System.out.println("2 "+categoryVo);
 		model.addAttribute("getValues", getValues);
 		
 		return "blog/blog-admin-category";
@@ -154,7 +174,6 @@ public class BlogController {
 	
 	@RequestMapping(value="/blog-admin-write", method=RequestMethod.POST)
 	public String blogAdminWrite(PostVo postVo) {
-		System.out.println("postVo  " +postVo);
 		blogService.writeInsert(postVo);
 		return "redirect:/blog/blog-main";
 	}

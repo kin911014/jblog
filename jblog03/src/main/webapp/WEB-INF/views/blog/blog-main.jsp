@@ -48,12 +48,14 @@
 
 		<div id="navigation">
 			<h2>카테고리</h2>
+			<c:forEach var="getValue" items="${getValues }" varStatus="status">
 			<ul>
-				<li><a href="">닥치고 스프링</a></li>
-				<li><a href="">스프링 스터디</a></li>
+				<li><a href="${pageContext.request.contextPath}">${getValue.name }</a></li>
+				<!-- <li><a href="">스프링 스터디</a></li>
 				<li><a href="">스프링 프로젝트</a></li>
-				<li><a href="">기타</a></li>
+				<li><a href="">기타</a></li> -->
 			</ul>
+			</c:forEach>
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
