@@ -30,8 +30,13 @@ public class BlogRepository {
 
 
 	public List<CategoryVo> categoryGet(CategoryVo categoryVo) {
-		List<CategoryVo> getValues = sqlSession.selectList("blog.categoryGet", categoryVo);
+		List<CategoryVo> getValues = sqlSession.selectList("category.categoryGet", categoryVo);
 		return getValues;
+	}
+
+	public void categoryInsert(CategoryVo categoryVo) {
+		sqlSession.insert("category.categoryInsert", categoryVo);
+		
 	}
 
 //	public int write(PostVo postVo) {

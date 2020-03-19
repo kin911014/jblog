@@ -28,6 +28,11 @@ public class BlogService {
 		List<CategoryVo> getValues = (List<CategoryVo>) blogRepository.categoryGet(categoryVo); 
 		return getValues;
 	}
+
+	public void categoryInsert(CategoryVo categoryVo) {
+		blogRepository.categoryInsert(categoryVo);
+		
+	}
  
 //	public int write(PostVo postVo) {
 //		
