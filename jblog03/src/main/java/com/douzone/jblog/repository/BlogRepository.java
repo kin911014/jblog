@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.douzone.jblog.vo.BlogVo;
 import com.douzone.jblog.vo.CategoryVo;
+import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
 
 @Repository
@@ -47,6 +48,11 @@ public class BlogRepository {
 	public List<CategoryVo> getCategoryName() {
 		List<CategoryVo> categoryNames = sqlSession.selectList("post.getCategoryName");
 		return categoryNames;
+	}
+
+	public void writeInsert(PostVo postVo) {
+		sqlSession.insert("post.writeInsert", postVo);
+		
 	}
 
 }

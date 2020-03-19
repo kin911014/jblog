@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="post">
-<!-- 	<select id="insert" parameterType="uservo">
+ 	<select id="writeInsert" parameterType="postvo">
 		<![CDATA[
-		insert into blog values(#{id}, '', '')
+		insert into post values(null, #{title}, #{contents}, now(), #{categoryNo})
 		]]>
 	</select>
-	
-	<select id="upload" parameterType="blogvo" >
-		<![CDATA[
-		update blog set title=#{title}, logo=#{logo} where id = #{id}
-		]]>
-	</select> -->
 	
 	<select id="getCategoryName" resultType="categoryvo">
 		<![CDATA[
 		select no, name, description, id from category
 		]]>
 	</select>
+	
+	<!--<select id="upload" parameterType="blogvo" >
+		<![CDATA[
+		update blog set title=#{title}, logo=#{logo} where id = #{id}
+		]]>
+	</select> -->
+	
 	
 	
 	
