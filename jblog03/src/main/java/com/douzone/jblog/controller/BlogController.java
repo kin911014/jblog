@@ -109,15 +109,19 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="/blog-admin-category", method=RequestMethod.POST)
-	public String blogAdminCategory(HttpSession session, CategoryVo categoryVo) {
+	public String blogAdminCategory(HttpSession session, CategoryVo categoryVo, Model model) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser == null) {
 			return "redirect:/";
 		}
 		
 		categoryVo.setId(authUser.getId());
-		System.out.println("controller categoryVo "+categoryVo);
 		blogService.categoryInsert(categoryVo);
+		
+		List<CategoryVo> getValues = blogService.categoryGet(categoryVo);
+		model.addAttribute("getValues", getValues);
+		
+		
 		return "blog/blog-admin-category";
 	}
 	
