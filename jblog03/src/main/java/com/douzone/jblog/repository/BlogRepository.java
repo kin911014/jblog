@@ -55,4 +55,9 @@ public class BlogRepository {
 		
 	}
 
+	public List<CategoryVo> categoryPostCount(CategoryVo categoryVo) {
+		List<CategoryVo> postCounts = sqlSession.selectList("category.categoryPostCount", categoryVo);
+		return postCounts;
+	}
+
 }

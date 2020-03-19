@@ -32,7 +32,7 @@
 					<tr>
 						<td>${getValue.no }</td>
 						<td>${getValue.name }</td>
-						<td>15</td>
+						<td>${getValue.postCount }</td>
 						<td>${getValue.description }</td>
 						<td>
 						<a href="${pageContext.request.contextPath}/blog/blog-admin-category/${getValue.no}">

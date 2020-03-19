@@ -48,5 +48,10 @@ public class BlogService {
 		blogRepository.writeInsert(postVo);
 		
 	}
+
+	public List<CategoryVo> categoryPostCount(CategoryVo categoryVo) {
+		List<CategoryVo> postCounts = blogRepository.categoryPostCount(categoryVo);
+		 return postCounts;
+	}
  
 }

@@ -102,15 +102,21 @@ public class BlogController {
 		if(authUser == null) {
 			return "redirect:/";
 		}
+//		categoryVo.setId(authUser.getId());
+//		List<CategoryVo> getValues = blogService.categoryGet(categoryVo);
+//		model.addAttribute("getValues", getValues);
+		
 		categoryVo.setId(authUser.getId());
-		List<CategoryVo> getValues = blogService.categoryGet(categoryVo);
+		System.out.println("1 "+categoryVo);
+		List<CategoryVo> getValues = blogService.categoryPostCount(categoryVo);
+		System.out.println("2 "+categoryVo);
 		model.addAttribute("getValues", getValues);
 		
 		return "blog/blog-admin-category";
 	}
 	
 	@RequestMapping(value="/blog-admin-category/{no}", method=RequestMethod.GET)
-	public String blogAdminCategory(@PathVariable("no") Long no,HttpSession session, CategoryVo categoryVo) {
+	public String blogAdminCategory(@PathVariable("no") Long no,HttpSession session, CategoryVo categoryVo, Model model) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser == null) {
 			return "redirect:/";
@@ -131,9 +137,10 @@ public class BlogController {
 		categoryVo.setId(authUser.getId());
 		blogService.categoryInsert(categoryVo);
 		
-		List<CategoryVo> getValues = blogService.categoryGet(categoryVo);
-		model.addAttribute("getValues", getValues);
 		
+		List<CategoryVo> getValues = blogService.categoryGet(categoryVo);
+		
+		model.addAttribute("getValues", getValues);
 		
 		return "redirect:/blog/blog-admin-category";
 	}
@@ -141,7 +148,6 @@ public class BlogController {
 	@RequestMapping(value="/blog-admin-write", method=RequestMethod.GET)
 	public String blogAdminWrite(Model model) {
 		List<CategoryVo> categoryNames = blogService.getCategoryName();
-		System.out.println(categoryNames);
 		model.addAttribute("categoryNames", categoryNames);
 		return "blog/blog-admin-write";
 	}
@@ -150,6 +156,6 @@ public class BlogController {
 	public String blogAdminWrite(PostVo postVo) {
 		System.out.println("postVo  " +postVo);
 		blogService.writeInsert(postVo);
-		return "blog/blog-admin-write";
+		return "redirect:/blog/blog-main";
 	}
 }

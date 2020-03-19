@@ -6,7 +6,14 @@ private String name;
 private String description;
 private String regDate;
 private String id;
+private Long postCount;
 
+public Long getPostCount() {
+	return postCount;
+}
+public void setPostCount(Long postCount) {
+	this.postCount = postCount;
+}
 public Long getNo() {
 	return no;
 }
@@ -41,7 +48,7 @@ public void setId(String id) {
 @Override
 public String toString() {
 	return "CategoryVo [no=" + no + ", name=" + name + ", description=" + description + ", regDate=" + regDate + ", id="
-			+ id + "]";
+			+ id + ", postCount=" + postCount + "]";
 }
 
 

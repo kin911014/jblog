@@ -19,9 +19,19 @@
 	
 	<select id="categoryDelete" parameterType="categoryvo" >
 		<![CDATA[
-		delete from category where no=${no}
+		delete from category where no=#{no}
 		]]>
 	</select>
+	
+	<select id="categoryPostCount" parameterType="categoryvo" resultType="categoryvo" >
+		<![CDATA[
+		select a.* ,ifnull(b.postCount,0) as postCount from category a  left join 
+		(select count(*)as postCount, category_no from post group by category_no) b 
+		on a.no= b.category_no
+		where a.id=#{id}
+		]]>
+	</select>
+	
 	
 	
 	
