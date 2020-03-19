@@ -44,10 +44,9 @@ public class BlogRepository {
 		
 	}
 
-//	public int write(PostVo postVo) {
-//		
-//		return sqlSession.insert("category.write", postVo);
-//	}
-
+	public List<CategoryVo> getCategoryName() {
+		List<CategoryVo> categoryNames = sqlSession.selectList("post.getCategoryName");
+		return categoryNames;
+	}
 
 }

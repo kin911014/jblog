@@ -37,9 +37,10 @@ public class BlogService {
 	public void categoryDelete(CategoryVo categoryVo) {
 		blogRepository.categoryDelete(categoryVo);
 	}
+
+	public List<CategoryVo> getCategoryName() {
+		List<CategoryVo> categoryNames = blogRepository.getCategoryName();
+		return categoryNames;
+	}
  
-//	public int write(PostVo postVo) {
-//		
-//		return blogRepository.write(postVo);
-//	}
 }

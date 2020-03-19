@@ -139,16 +139,16 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="/blog-admin-write", method=RequestMethod.GET)
-	public String blogAdminWrite(CategoryVo categoryVo) {
-		
-		
-		
+	public String blogAdminWrite() {
+		List<CategoryVo> categoryNames = blogService.getCategoryName();
+		System.out.println(categoryNames);
 		return "blog/blog-admin-write";
 	}
 	
 	@RequestMapping(value="/blog-admin-write", method=RequestMethod.POST)
-	public String blogAdminWrite(PostVo postVo) {
-//		int blogWrite = blogService.write(postVo);
+	public String blogAdminWrite(PostVo postVo, CategoryVo categoryVo) {
+		postVo.setCategoryNo(categoryVo.getNo());
+//		blogService.writeInsert();
 		return "blog/blog-admin-write";
 	}
 }
