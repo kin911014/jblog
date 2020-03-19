@@ -13,9 +13,9 @@
 		]]>
 	</select>
 	
-	<select id="findFileName" parameterType="blogvo" resultType="blogvo">
+	<select id="findFileName" parameterType="uservo" resultType="blogvo">
 		<![CDATA[
-		select title, logo from blog where id=#{id}
+		select id, title, logo from blog where id=#{id}
 		]]>
 	</select>
 	

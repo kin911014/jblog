@@ -24,8 +24,8 @@ public class BlogRepository {
 		sqlSession.insert("blog.upload", blogVo);
 	}
 
-	public BlogVo findFileName(BlogVo blogVo) {
-		BlogVo vo = sqlSession.selectOne("blog.findFileName", blogVo);
+	public BlogVo findFileName(String id) {
+		BlogVo vo = sqlSession.selectOne("blog.findFileName", id);
 		return vo;
 	}
 
@@ -55,8 +55,8 @@ public class BlogRepository {
 		
 	}
 
-	public List<CategoryVo> categoryPostCount(CategoryVo categoryVo) {
-		List<CategoryVo> postCounts = sqlSession.selectList("category.categoryPostCount", categoryVo);
+	public List<CategoryVo> categoryPostCount(String id) {
+		List<CategoryVo> postCounts = sqlSession.selectList("category.categoryPostCount", id);
 		return postCounts;
 	}
 

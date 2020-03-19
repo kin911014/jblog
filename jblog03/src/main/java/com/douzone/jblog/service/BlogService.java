@@ -20,8 +20,8 @@ public class BlogService {
 		
 	}
 
-	public BlogVo findFileName(BlogVo blogVo) {
-		BlogVo vo = blogRepository.findFileName(blogVo);
+	public BlogVo findFileName(String id) {
+		BlogVo vo = blogRepository.findFileName(id);
 		return vo;
 	}
 
@@ -49,8 +49,8 @@ public class BlogService {
 		
 	}
 
-	public List<CategoryVo> categoryPostCount(CategoryVo categoryVo) {
-		List<CategoryVo> postCounts = blogRepository.categoryPostCount(categoryVo);
+	public List<CategoryVo> categoryPostCount(String id) {
+		List<CategoryVo> postCounts = blogRepository.categoryPostCount(id);
 		 return postCounts;
 	}
  

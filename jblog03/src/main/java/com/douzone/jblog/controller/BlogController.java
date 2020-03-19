@@ -32,6 +32,13 @@ public class BlogController {
 	@Autowired
 	private BlogService blogService;
 	
+	private void blogVo(Model model, String id) {
+		BlogVo vo = blogService.findFileName(id);
+		System.out.println("vo의 값 "+vo);
+		model.addAttribute("blogVo", vo);
+		
+	}
+	
 	@RequestMapping({ "", "/{pathNo1}", "/{pathNo1}/{pathNo2}" })
 	public String blogMain( 
 //			BlogVo blogVo, Model model, HttpSession session, CategoryVo categoryVo
@@ -45,29 +52,38 @@ public class BlogController {
 		Long categoryNo = 0L;
 		Long postNo = 0L;
 		
-//		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(id == null) {
+			return "blog/blog-main";
+		} 
 		
-		if(id != null) {
-		BlogVo blogVo = new BlogVo();
-		blogVo.setId(id);
-		BlogVo vo = blogService.findFileName(blogVo);
-		String url = vo.getLogo();
-		model.addAttribute("url", url);
-			
-//		categoryVo.setId(authUser.getId());
-//		System.out.println("1 "+categoryVo);
-//		List<CategoryVo> getValues = blogService.categoryPostCount(categoryVo);
+		blogVo(model,id);
+		List<CategoryVo> getValues = blogService.categoryPostCount(id);
+		System.out.println("getValues의 값 "+getValues);
+		
+		
+		return "blog/blog-main";
+//		if(id != null) {
+//		BlogVo blogVo = new BlogVo();
+//		blogVo.setId(id);
+//		BlogVo vo = blogService.findFileName(blogVo);
+//		String url = vo.getLogo();
+//		System.out.println(url);
+//		model.addAttribute("url", url);
+//			
+//		CategoryVo categoryVo = new CategoryVo();
+//		categoryVo.setId(id);
 //		System.out.println("2 "+categoryVo);
 //		model.addAttribute("getValues", getValues);
-			
-			
-			return "blog/blog-main";
-		}else {
-			
-			return "blog/blog-main";
-		}
+//			
+//			
+//			return "blog/blog-main";
+//		}else {
+//			
+//			return "blog/blog-main";
+//		}
 	}
 	
+
 	@RequestMapping(value="/blog-admin-basic", method=RequestMethod.GET)
 	public String blogAdminBasic(BlogVo blogVo, Model model, HttpSession session) {
 	//////////////////////접근제한//////////////////////////////
@@ -77,13 +93,10 @@ public class BlogController {
 		}
 	//////////////////////접근제한//////////////////////////////
 		
-		String id = authUser.getId();
-		blogVo.setId(id);
-		BlogVo vo = blogService.findFileName(blogVo);
-		String url = vo.getLogo();
-		String title = vo.getTitle();
-		model.addAttribute("url", url);
-		model.addAttribute("title", title);
+//		String url = vo.getLogo();
+//		String title = vo.getTitle();
+//		model.addAttribute("url", url);
+//		model.addAttribute("title", title);
 		
 		return "blog/blog-admin-basic";
 	}
@@ -119,17 +132,16 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="/blog-admin-category", method=RequestMethod.GET)
-	public String blogAdminCategory(HttpSession session, Model model, CategoryVo categoryVo) {
+	public String blogAdminCategory(HttpSession session,
+			Model model,
+			@PathVariable String id 
+	/*,CategoryVo categoryVo*/){
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser == null) {
 			return "redirect:/";
 		}
 //		categoryVo.setId(authUser.getId());
-//		List<CategoryVo> getValues = blogService.categoryGet(categoryVo);
-//		model.addAttribute("getValues", getValues);
-		
-		categoryVo.setId(authUser.getId());
-		List<CategoryVo> getValues = blogService.categoryPostCount(categoryVo);
+		List<CategoryVo> getValues = blogService.categoryPostCount(id);
 		model.addAttribute("getValues", getValues);
 		
 		return "blog/blog-admin-category";
@@ -173,8 +185,11 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="/blog-admin-write", method=RequestMethod.POST)
-	public String blogAdminWrite(PostVo postVo) {
+	public String blogAdminWrite(
+			@PathVariable String id,
+			PostVo postVo) {
 		blogService.writeInsert(postVo);
-		return "redirect:/blog/blog-main";
+		
+		return "redirect:/" +id+ "/blog-admin-write";
 	}
 }
