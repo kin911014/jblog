@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.douzone.jblog.repository.BlogRepository;
 import com.douzone.jblog.vo.BlogVo;
+import com.douzone.jblog.vo.CategoryVo;
 
 @Service
 public class BlogService {
@@ -19,6 +20,11 @@ public class BlogService {
 	public BlogVo findFileName(BlogVo blogVo) {
 		BlogVo vo = blogRepository.findFileName(blogVo);
 		return vo;
+	}
+
+	public CategoryVo categoryGet(CategoryVo categoryVo) {
+		CategoryVo getValue = blogRepository.categoryGet(categoryVo); 
+		return getValue;
 	}
 
 

@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.service.FileUploadService;
 import com.douzone.jblog.vo.BlogVo;
+import com.douzone.jblog.vo.CategoryVo;
 import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
 
@@ -39,13 +40,6 @@ public class BlogController {
 			
 			return "blog/blog-main";
 		}
-		//////////////////////접근제한//////////////////////////////
-		//if(authUser == null) {
-		//return "redirect:/";
-		//}
-		//////////////////////접근제한//////////////////////////////
-
-		
 	}
 	
 	@RequestMapping(value="/blog-admin-basic", method=RequestMethod.GET)
@@ -99,10 +93,17 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="/blog-admin-category", method=RequestMethod.GET)
-	public String blogAdminCategory() {
-		return "blog/blog-admin-category";
-
+	public String blogAdminCategory(HttpSession session, Model model, CategoryVo categoryVo) {
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		categoryVo.setId(authUser.getId());
+		CategoryVo getValue = blogService.categoryGet(categoryVo);
+		model.addAttribute("getValue", getValue);
 		
+		
+		return "blog/blog-admin-category";
 	}
 	
 	@RequestMapping(value="/blog-admin-write", method=RequestMethod.GET)
