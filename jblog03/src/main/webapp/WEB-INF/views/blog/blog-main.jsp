@@ -34,9 +34,16 @@
 		</div>
 
 		<div id="extra">
-			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}/images/${url }">
-			</div>
+			<c:if test="${not empty authUser }">
+				<div class="blog-logo">
+					<img src="${pageContext.request.contextPath}/images/${url }">
+				</div>
+			</c:if>
+			<c:if test="${empty authUser }">
+				<div class="blog-logo">
+					<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+				</div>
+			</c:if>
 		</div>
 
 		<div id="navigation">

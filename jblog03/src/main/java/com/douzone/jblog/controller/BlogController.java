@@ -27,21 +27,25 @@ public class BlogController {
 	private BlogService blogService;
 	@RequestMapping(value="/blog-main", method=RequestMethod.GET)
 	public String blogMain(BlogVo blogVo, Model model, HttpSession session) {
-		//////////////////////접근제한//////////////////////////////
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser != null) {
+			String id = authUser.getId();
+			blogVo.setId(id);
+			BlogVo vo = blogService.findFileName(blogVo);
+			String url = vo.getLogo();
+			model.addAttribute("url", url);
+			return "blog/blog-main";
+		}else {
+			
+			return "blog/blog-main";
+		}
+		//////////////////////접근제한//////////////////////////////
 		//if(authUser == null) {
 		//return "redirect:/";
 		//}
 		//////////////////////접근제한//////////////////////////////
-		String id = authUser.getId();
-		System.out.println("id1 "+id);
-		blogVo.setId(id);
-		BlogVo vo = blogService.findFileName(blogVo);
-		String url = vo.getLogo();
-		model.addAttribute("url", url);
 
 		
-		return "blog/blog-main";
 	}
 	
 	@RequestMapping(value="/blog-admin-basic", method=RequestMethod.GET)

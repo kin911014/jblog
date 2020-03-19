@@ -13,7 +13,7 @@
 			</c:if>
 			<c:if test="${not empty authUser }">
 				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-				<li><a href="${pageContext.request.contextPath }/blog/blog-main">블로그 관리</a></li>
+				<li><a href="${pageContext.request.contextPath }/blog/blog-main">내 블로그</a></li>
 			</c:if>		
 		</ul>
 		</div>
