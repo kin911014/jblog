@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,7 @@ public class BlogController {
 	
 	@Autowired
 	private BlogService blogService;
+	
 	@RequestMapping(value="/blog-main", method=RequestMethod.GET)
 	public String blogMain(BlogVo blogVo, Model model, HttpSession session) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
@@ -91,7 +93,7 @@ public class BlogController {
 		
 		blogService.upload(blogVo);
 
-		return "/blog/blog-main";
+		return "redirect:/blog/blog-main";
 	}
 	
 	@RequestMapping(value="/blog-admin-category", method=RequestMethod.GET)
@@ -102,10 +104,21 @@ public class BlogController {
 		}
 		categoryVo.setId(authUser.getId());
 		List<CategoryVo> getValues = blogService.categoryGet(categoryVo);
-		System.out.println(getValues);
 		model.addAttribute("getValues", getValues);
 		
 		return "blog/blog-admin-category";
+	}
+	
+	@RequestMapping(value="/blog-admin-category/{no}", method=RequestMethod.GET)
+	public String blogAdminCategory(@PathVariable("no") Long no,HttpSession session, CategoryVo categoryVo) {
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser == null) {
+			return "redirect:/";
+		}
+		categoryVo.setNo(no);
+		blogService.categoryDelete(categoryVo);
+		
+		return "redirect:/blog/blog-admin-category";
 	}
 	
 	@RequestMapping(value="/blog-admin-category", method=RequestMethod.POST)
@@ -122,7 +135,7 @@ public class BlogController {
 		model.addAttribute("getValues", getValues);
 		
 		
-		return "blog/blog-admin-category";
+		return "redirect:/blog/blog-admin-category";
 	}
 	
 	@RequestMapping(value="/blog-admin-write", method=RequestMethod.GET)

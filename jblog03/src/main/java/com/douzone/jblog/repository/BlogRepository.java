@@ -39,6 +39,11 @@ public class BlogRepository {
 		
 	}
 
+	public void categoryDelete(CategoryVo categoryVo) {
+		sqlSession.delete("category.categoryDelete", categoryVo);
+		
+	}
+
 //	public int write(PostVo postVo) {
 //		
 //		return sqlSession.insert("category.write", postVo);

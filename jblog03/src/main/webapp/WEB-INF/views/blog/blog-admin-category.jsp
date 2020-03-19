@@ -34,7 +34,11 @@
 						<td>${getValue.name }</td>
 						<td>15</td>
 						<td>${getValue.description }</td>
-						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
+						<td>
+						<a href="${pageContext.request.contextPath}/blog/blog-admin-category/${getValue.no}">
+						<img src="${pageContext.request.contextPath}/assets/images/delete.jpg">
+						</a>
+						</td>
 					</tr>					  
 					</c:forEach>
 				</table>

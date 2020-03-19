@@ -17,11 +17,11 @@
 		]]>
 	</select>
 	
-	<!-- <select id="upload" parameterType="blogvo" >
+	<select id="categoryDelete" parameterType="categoryvo" >
 		<![CDATA[
-		update blog set title=#{title}, logo=#{logo} where id = #{id}
+		delete from category where no=${no}
 		]]>
-	</select> -->
+	</select>
 	
 	
 	

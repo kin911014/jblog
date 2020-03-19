@@ -33,6 +33,10 @@ public class BlogService {
 		blogRepository.categoryInsert(categoryVo);
 		
 	}
+
+	public void categoryDelete(CategoryVo categoryVo) {
+		blogRepository.categoryDelete(categoryVo);
+	}
  
 //	public int write(PostVo postVo) {
 //		
