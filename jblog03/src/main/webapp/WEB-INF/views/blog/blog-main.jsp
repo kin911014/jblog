@@ -42,9 +42,9 @@
 
 		<div id="navigation">
 			<h2>카테고리</h2>
-			<c:forEach var="getValue" items="${getValues }" varStatus="status">
+			<c:forEach var="categoryvo" items="${getValues }" varStatus="status">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}">${getValue.name }</a></li>
+				<li><a href="${pageContext.request.contextPath}/${categoryvo.id}/${categoryvo.postCount}">${categoryvo.name }</a></li>
 				<!-- <li><a href="">스프링 스터디</a></li>
 				<li><a href="">스프링 프로젝트</a></li>
 				<li><a href="">기타</a></li> -->

@@ -14,20 +14,16 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="wrapper">
 			<div id="content" class="full-screen">
-				<ul class="admin-menu">
-					<li class="selected">기본설정</li>
-					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-category">카테고리</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-write">글작성</a></li>
-				</ul>
+				<c:import url="/WEB-INF/views/includes/admin-menu.jsp" />
 				<form action="${pageContext.request.contextPath }/blog/blog-admin-basic" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
-			      			<td><input type="text" size="40" name="title" value=${title }></td>
+			      			<td><input type="text" size="40" name="title" value="${blogVo.title}"></td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}/images/${url }"></td>      			
+			      			<td><img src="${pageContext.request.contextPath}/images/${blogVo.logo}"></td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
