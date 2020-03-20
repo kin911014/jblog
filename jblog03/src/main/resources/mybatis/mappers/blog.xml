@@ -13,7 +13,7 @@
 		]]>
 	</select>
 	
-	<select id="findFileName" parameterType="uservo" resultType="blogvo">
+	<select id="getBlogValue" parameterType="blogvo" resultType="blogvo">
 		<![CDATA[
 		select id, title, logo from blog where id=#{id}
 		]]>

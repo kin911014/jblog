@@ -34,7 +34,10 @@ public class BlogController {
 	private BlogService blogService;
 	
 	private void blogVo(Model model, String id) {
-		BlogVo vo = blogService.findFileName(id);
+		
+		BlogVo blogVo = new BlogVo();
+		blogVo.setId(id);
+		BlogVo vo = blogService.getBlogValue(blogVo);
 		System.out.println("id "+id);
 		System.out.println("vo의 값 "+vo);
 		model.addAttribute("blogVo", vo);
@@ -102,18 +105,15 @@ public class BlogController {
 
 	@RequestMapping(value="/blog-admin-basic", method=RequestMethod.GET)
 	public String blogAdminBasic(@PathVariable String id, Model model, HttpSession session) {
-	//////////////////////접근제한//////////////////////////////
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-		return "redirect:/";
-		}
-	//////////////////////접근제한//////////////////////////////
-		blogVo(model,id);
-//		String url = vo.getLogo();
-//		String title = vo.getTitle();
-//		model.addAttribute("url", url);
-//		model.addAttribute("title", title);
 		
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser == null || id.equals(authUser.getId())) {
+			return "redirect:/";
+		}
+		//////////////////////접근제한//////////////////////////////
+		
+		
+		blogVo(model,id);
 		return "blog/blog-admin-basic";
 	}
 	
@@ -122,23 +122,18 @@ public class BlogController {
 			HttpSession session
 			,@RequestParam(value="title", required=true, defaultValue="") String title, 
 			@RequestParam(value="logo") MultipartFile multipartFile,
+			@PathVariable String id,
 			Model model
 			) {
 		
-		//////////////////////접근제한//////////////////////////////
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/";
-		}
-		//////////////////////접근제한//////////////////////////////
 		
 		// 사진 url
 		String url = fileUploadService.restore(multipartFile);
-		model.addAttribute("url", url);
-		
 		BlogVo blogVo = new BlogVo();
-		String id = authUser.getId();
-		blogVo.setId(id);
+		if(url.equals("")) {
+			blogVo.setId(id);
+			BlogVo vo = blogService.getBlogValue(blogVo);
+		}
 		blogVo.setTitle(title);
 		blogVo.setLogo(url);
 		
