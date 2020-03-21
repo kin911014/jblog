@@ -16,7 +16,7 @@ public class UserService {
 	
 	public void join(UserVo userVo) {
 		userRepository.join(userVo);
-		blogRepository.insert(userVo);
+//		blogRepository.insert(userVo);
 	}
 
 	public UserVo findByEmailAndPassword(UserVo userVo) {

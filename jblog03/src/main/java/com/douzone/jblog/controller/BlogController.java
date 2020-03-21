@@ -107,7 +107,7 @@ public class BlogController {
 	public String blogAdminBasic(@PathVariable String id, Model model, HttpSession session) {
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null || id.equals(authUser.getId())) {
+		if(authUser == null || !id.equals(authUser.getId())) {
 			return "redirect:/";
 		}
 		//////////////////////접근제한//////////////////////////////
