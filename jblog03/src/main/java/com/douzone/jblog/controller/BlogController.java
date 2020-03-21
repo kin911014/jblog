@@ -104,7 +104,7 @@ public class BlogController {
 	
 
 	@RequestMapping(value="/blog-admin-basic", method=RequestMethod.GET)
-	public String blogAdminBasic(@PathVariable String id, Model model, HttpSession session) {
+	public String blogAdminBasic(@ModelAttribute("id") @PathVariable String id, Model model, HttpSession session) {
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser == null || !id.equals(authUser.getId())) {
@@ -130,16 +130,24 @@ public class BlogController {
 		// 사진 url
 		String url = fileUploadService.restore(multipartFile);
 		BlogVo blogVo = new BlogVo();
+		
 		if(url.equals("")) {
+			
 			blogVo.setId(id);
 			BlogVo vo = blogService.getBlogValue(blogVo);
+			blogService.upload(vo);
+			
+		}else {
+			blogVo.setId(id);
+			blogVo.setTitle(title);
+			blogVo.setLogo(url);
+			blogService.upload(blogVo);
+			BlogVo vo =blogService.getBlogValue(blogVo);
+			model.addAttribute("blogVo",vo);
 		}
-		blogVo.setTitle(title);
-		blogVo.setLogo(url);
 		
-		blogService.upload(blogVo);
 
-		return "redirect:/blog/blog-main";
+		return "redirect:/" + id + "/blog-admin-basic";
 	}
 	
 	@RequestMapping(value="/blog-admin-category", method=RequestMethod.GET)
