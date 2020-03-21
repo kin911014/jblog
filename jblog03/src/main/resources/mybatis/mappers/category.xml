@@ -23,7 +23,7 @@
 		]]>
 	</select>
 	
-	<select id="categoryPostCount" parameterType="categoryvo" resultType="categoryvo" >
+	<select id="getCateValueByCnt" parameterType="categoryvo" resultType="categoryvo" >
 		<![CDATA[
 		select a.* ,ifnull(b.postCount,0) as postCount from category a  left join 
 		(select count(*)as postCount, category_no from post group by category_no) b 

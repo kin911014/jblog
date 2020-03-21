@@ -60,8 +60,8 @@ public class BlogRepository {
 		
 	}
 
-	public List<CategoryVo> categoryPostCount(String id) {
-		List<CategoryVo> postCounts = sqlSession.selectList("category.categoryPostCount", id);
+	public List<CategoryVo> getCateValueByCnt(String id) {
+		List<CategoryVo> postCounts = sqlSession.selectList("category.getCateValueByCnt", id);
 		return postCounts;
 	}
 

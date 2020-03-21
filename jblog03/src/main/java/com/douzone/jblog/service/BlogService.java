@@ -54,8 +54,8 @@ public class BlogService {
 		
 	}
 
-	public List<CategoryVo> categoryPostCount(String id) {
-		List<CategoryVo> postCounts = blogRepository.categoryPostCount(id);
+	public List<CategoryVo> getCateValueByCnt(String id) {
+		List<CategoryVo> postCounts = blogRepository.getCateValueByCnt(id);
 		 return postCounts;
 	}
 

@@ -33,7 +33,7 @@
 						<td>
 						<c:if test="${getValue.postCount == 0 }">
 						
-							<a href="${pageContext.request.contextPath}/blog/blog-admin-category/${getValue.no}">
+							<a href="${pageContext.request.contextPath}/${getValue.id }/blog-admin-category/${getValue.no}">
 							<img src="${pageContext.request.contextPath}/assets/images/delete.jpg">
 						</a>
 						</c:if>
