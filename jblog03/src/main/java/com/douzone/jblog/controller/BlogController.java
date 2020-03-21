@@ -153,7 +153,7 @@ public class BlogController {
 	@RequestMapping(value="/blog-admin-category", method=RequestMethod.GET)
 	public String blogAdminCategory(HttpSession session,
 			Model model,
-			@PathVariable String id 
+			@ModelAttribute("id") @PathVariable String id 
 	/*,CategoryVo categoryVo*/){
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser == null) {
@@ -197,7 +197,8 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="/blog-admin-write", method=RequestMethod.GET)
-	public String blogAdminWrite(Model model) {
+	public String blogAdminWrite(Model model,
+			@ModelAttribute("id") @PathVariable String id) {
 		List<CategoryVo> categoryNames = blogService.getCategoryName();
 		model.addAttribute("categoryNames", categoryNames);
 		return "blog/blog-admin-write";

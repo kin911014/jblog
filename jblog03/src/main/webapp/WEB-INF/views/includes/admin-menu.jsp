@@ -6,6 +6,6 @@
     
    		<ul class="admin-menu">
 					<li><a href="${pageContext.request.contextPath}/${id }/blog-admin-basic">기본설정</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-category">카테고리</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-write">글작성</a></li>
+					<li><a href="${pageContext.request.contextPath}/${id }/blog-admin-category">카테고리</a></li>
+					<li><a href="${pageContext.request.contextPath}/${id }/blog-admin-write">글작성</a></li>
 				</ul>
