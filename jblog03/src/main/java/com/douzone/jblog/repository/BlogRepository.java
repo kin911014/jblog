@@ -1,5 +1,6 @@
 package com.douzone.jblog.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -60,9 +61,29 @@ public class BlogRepository {
 		
 	}
 
-	public List<CategoryVo> getCateValueByCnt(String id) {
-		List<CategoryVo> postCounts = sqlSession.selectList("category.getCateValueByCnt", id);
+	public List<CategoryVo> getCateValueById(String id) {
+		List<CategoryVo> postCounts = sqlSession.selectList("category.getCateValueById", id);
 		return postCounts;
+	}
+
+	public PostVo getCategoryPost(HashMap<String, Object> map) {
+		return sqlSession.selectOne("blog.getcategorypost", map);
+	}
+
+	public List<PostVo> getCategoryPostList(HashMap<String, Object> map) {
+		return sqlSession.selectList("blog.getcategorypostlist", map);
+	}
+
+	public PostVo getCategoryMainPost(HashMap<String, Object> setMap) {
+		return sqlSession.selectOne("blog.getcategorymainpost", setMap);
+	}
+
+	public PostVo getBlogMainPost(UserVo vo) {
+		return sqlSession.selectOne("blog.getblogmainpost", vo);
+	}
+	
+	public List<PostVo> getBlogMainPostList(UserVo vo) {
+		return sqlSession.selectList("blog.getblogmainpostlist", vo);
 	}
 
 	

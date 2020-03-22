@@ -38,8 +38,6 @@ public class BlogController {
 		BlogVo blogVo = new BlogVo();
 		blogVo.setId(id);
 		BlogVo vo = blogService.getBlogValue(blogVo);
-		System.out.println("id "+id);
-		System.out.println("vo의 값 "+vo);
 		model.addAttribute("blogVo", vo);
 		
 	}
@@ -56,7 +54,7 @@ public class BlogController {
 		blogVo(model,id);
 		
 		// category cnt number
-		List<CategoryVo> getValues = blogService.getCateValueByCnt(id);
+		List<CategoryVo> getValues = blogService.getCateValueById(id);
 		model.addAttribute("getValues", getValues);
 		
 		
@@ -76,29 +74,10 @@ public class BlogController {
 			categoryNo = pathNo1.get();
 		}
 		
-		
+		modelMap.putAll(blogService.getAll(id, categoryNo, postNo));
 		
 		
 		return "blog/blog-main";
-//		if(id != null) {
-//		BlogVo blogVo = new BlogVo();
-//		blogVo.setId(id);
-//		BlogVo vo = blogService.findFileName(blogVo);
-//		String url = vo.getLogo();
-//		System.out.println(url);
-//		model.addAttribute("url", url);
-//			
-//		CategoryVo categoryVo = new CategoryVo();
-//		categoryVo.setId(id);
-//		System.out.println("2 "+categoryVo);
-//		model.addAttribute("getValues", getValues);
-//			
-//			
-//			return "blog/blog-main";
-//		}else {
-//			
-//			return "blog/blog-main";
-//		}
 	}
 	
 
@@ -162,7 +141,7 @@ public class BlogController {
 		//////////////////////접근제한//////////////////////////////
 		
 		
-		List<CategoryVo> getValues = blogService.getCateValueByCnt(id);
+		List<CategoryVo> getValues = blogService.getCateValueById(id);
 		model.addAttribute("getValues", getValues);
 
 		
@@ -201,9 +180,17 @@ public class BlogController {
 	
 	@RequestMapping(value="/blog-admin-write", method=RequestMethod.GET)
 	public String blogAdminWrite(Model model,
-			@ModelAttribute("id") @PathVariable String id) {
+			@ModelAttribute("id") @PathVariable String id,
+			HttpSession session) {
+		
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser == null || !id.equals(authUser.getId())) {
+			return "redirect:/";
+		}
+		
 		List<CategoryVo> categoryNames = blogService.getCategoryName();
 		model.addAttribute("categoryNames", categoryNames);
+		
 		return "blog/blog-admin-write";
 	}
 	
@@ -211,6 +198,7 @@ public class BlogController {
 	public String blogAdminWrite(
 			@PathVariable String id,
 			PostVo postVo) {
+		
 		blogService.writeInsert(postVo);
 		
 		return "redirect:/{id}/blog-admin-write";
