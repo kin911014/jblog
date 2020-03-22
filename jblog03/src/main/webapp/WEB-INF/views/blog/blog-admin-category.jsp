@@ -43,8 +43,8 @@
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
-				<c:forEach var="getValue" items="${getValues }" varStatus="status">
-	      			<form action="${pageContext.request.contextPath }/${getValue.id }/blog-admin-category/${getValue.no}" method="post">
+				
+	      		   	<form action="${pageContext.request.contextPath }/${id }/blog-admin-category" method="post">
 				      	<table id="admin-cat-add">
 				      		<tr>
 				      			<td class="t">카테고리명</td>
@@ -59,7 +59,6 @@
 				      		</tr>      		      		
 				      	</table> 
 	      			</form>
-				</c:forEach>
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />

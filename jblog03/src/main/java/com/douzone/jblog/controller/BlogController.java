@@ -149,6 +149,7 @@ public class BlogController {
 		return "redirect:/" + id + "/blog-admin-basic";
 	}
 	
+	// admin --get category
 	@RequestMapping(value="/blog-admin-category", method=RequestMethod.GET)
 	public String blogAdminCategory(HttpSession session,
 			Model model,
@@ -168,6 +169,26 @@ public class BlogController {
 		return "blog/blog-admin-category";
 	}
 	
+	
+	// admin --post category
+	@RequestMapping(value="/blog-admin-category", method=RequestMethod.POST)
+	public String blogAdminCategory(HttpSession session,
+			@PathVariable String id,
+			CategoryVo categoryVo,
+			Model model) {
+		
+		categoryVo.setId(id);
+		blogService.categoryInsert(categoryVo);
+		
+		
+		List<CategoryVo> getValues = blogService.categoryGet(categoryVo);
+		model.addAttribute("getValues", getValues);
+		
+		return "redirect:/{id}/blog-admin-category";
+	}
+	
+	
+	// admin - delete
 	@RequestMapping(value="/blog-admin-category/delete/{no}", method=RequestMethod.GET)
 	public String blogCategoryDelete(@PathVariable("no") Long no, CategoryVo categoryVo ) {
 		
@@ -176,24 +197,7 @@ public class BlogController {
 		
 		return "redirect:/{id}/blog-admin-category";
 	}
-	
-	@RequestMapping(value="/blog-admin-category", method=RequestMethod.POST)
-	public String blogAdminCategory(HttpSession session, CategoryVo categoryVo, Model model) {
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/";
-		}
-		
-		categoryVo.setId(authUser.getId());
-		blogService.categoryInsert(categoryVo);
-		
-		
-		List<CategoryVo> getValues = blogService.categoryGet(categoryVo);
-		
-		model.addAttribute("getValues", getValues);
-		
-		return "redirect:/blog/blog-admin-category";
-	}
+
 	
 	@RequestMapping(value="/blog-admin-write", method=RequestMethod.GET)
 	public String blogAdminWrite(Model model,
