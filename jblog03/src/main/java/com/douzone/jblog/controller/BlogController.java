@@ -213,6 +213,6 @@ public class BlogController {
 			PostVo postVo) {
 		blogService.writeInsert(postVo);
 		
-		return "redirect:/" +id+ "/blog-admin-write";
+		return "redirect:/{id}/blog-admin-write";
 	}
 }
