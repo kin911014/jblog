@@ -33,7 +33,7 @@
 						<td>
 						<c:if test="${getValue.postCount == 0 }">
 						
-							<a href="${pageContext.request.contextPath}/${getValue.id }/blog-admin-category/${getValue.no}">
+							<a href="${pageContext.request.contextPath}/${getValue.id }/blog-admin-category/delete/${getValue.no}">
 							<img src="${pageContext.request.contextPath}/assets/images/delete.jpg">
 						</a>
 						</c:if>
@@ -43,21 +43,23 @@
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
-      			<form action="${pageContext.request.contextPath }/blog/blog-admin-category" method="post">
-			      	<table id="admin-cat-add">
-			      		<tr>
-			      			<td class="t">카테고리명</td>
-			      			<td><input type="text" name="name"></td>
-			      		</tr>
-			      		<tr>
-			      			<td class="t">설명</td>
-			      			<td><input type="text" name="description"></td>
-			      		</tr>
-			      		<tr>
-			      			<td><input type="submit" value="카테고리 추가"></td>
-			      		</tr>      		      		
-			      	</table> 
-      			</form>
+				<c:forEach var="getValue" items="${getValues }" varStatus="status">
+	      			<form action="${pageContext.request.contextPath }/${getValue.id }/blog-admin-category/${getValue.no}" method="post">
+				      	<table id="admin-cat-add">
+				      		<tr>
+				      			<td class="t">카테고리명</td>
+				      			<td><input type="text" name="name"></td>
+				      		</tr>
+				      		<tr>
+				      			<td class="t">설명</td>
+				      			<td><input type="text" name="description"></td>
+				      		</tr>
+				      		<tr>
+				      			<td><input type="submit" value="카테고리 추가"></td>
+				      		</tr>      		      		
+				      	</table> 
+	      			</form>
+				</c:forEach>
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />

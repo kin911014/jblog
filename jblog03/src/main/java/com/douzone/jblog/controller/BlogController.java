@@ -57,7 +57,6 @@ public class BlogController {
 		
 		// category cnt number
 		List<CategoryVo> getValues = blogService.getCateValueByCnt(id);
-		System.out.println("getValues의 값 "+getValues);
 		model.addAttribute("getValues", getValues);
 		
 		
@@ -150,13 +149,10 @@ public class BlogController {
 		return "redirect:/" + id + "/blog-admin-basic";
 	}
 	
-	@RequestMapping(value="/blog-admin-category{no}", method=RequestMethod.GET)
+	@RequestMapping(value="/blog-admin-category", method=RequestMethod.GET)
 	public String blogAdminCategory(HttpSession session,
 			Model model,
-			@ModelAttribute("id") @PathVariable String id,
-			@PathVariable Long no,
-			CategoryVo categoryVo){
-		
+			@ModelAttribute("id") @PathVariable String id){
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser == null || !id.equals(authUser.getId())) {
@@ -164,33 +160,22 @@ public class BlogController {
 		}
 		//////////////////////접근제한//////////////////////////////
 		
-		// get category's value 
+		
 		List<CategoryVo> getValues = blogService.getCateValueByCnt(id);
 		model.addAttribute("getValues", getValues);
 
-		if(no != null) {
-			categoryVo.setNo(no);
-			blogService.categoryDelete(categoryVo);
-			return "redirect:/" + id+ "/blog-admin-category";
-		}
-		
 		
 		return "blog/blog-admin-category";
 	}
 	
-//	@RequestMapping(value="/blog-admin-category/{no}", method=RequestMethod.GET)
-//	public String blogAdminCategory(@PathVariable("no") Long no,HttpSession session, CategoryVo categoryVo, Model model) {
-//		
-//		
-//		UserVo authUser = (UserVo)session.getAttribute("authUser");
-//		if(authUser == null) {
-//			return "redirect:/";
-//		}
-//		categoryVo.setNo(no);
-//		blogService.categoryDelete(categoryVo);
-//		
-//		return "redirect:/blog/blog-admin-category";
-//	}
+	@RequestMapping(value="/blog-admin-category/delete/{no}", method=RequestMethod.GET)
+	public String blogCategoryDelete(@PathVariable("no") Long no, CategoryVo categoryVo ) {
+		
+		categoryVo.setNo(no);
+		blogService.categoryDelete(categoryVo);
+		
+		return "redirect:/{id}/blog-admin-category";
+	}
 	
 	@RequestMapping(value="/blog-admin-category", method=RequestMethod.POST)
 	public String blogAdminCategory(HttpSession session, CategoryVo categoryVo, Model model) {
