@@ -32,10 +32,10 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		configurer.enable();
 	}
 
-	// MVC resource
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/images/**").addResourceLocations("file:/logo/");
-	}
+//	// MVC resource
+//	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//		registry.addResourceHandler("/images/**").addResourceLocations("file:/logo/");
+//	}
 	
 	
 }
