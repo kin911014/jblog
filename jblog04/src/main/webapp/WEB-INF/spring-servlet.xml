@@ -47,7 +47,7 @@
 
 
 	<!-- mvc resource -->
-	<!-- <mvc:resources location="file:/logo/"
-		mapping="/images/**"></mvc:resources> -->
+	<mvc:resources location="file:logo/"
+		mapping="/images/**"></mvc:resources>
 
 </beans>
