@@ -9,7 +9,7 @@ import com.douzone.jblog.config.web.MvcConfig;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.douzone.jblog.controller, com.douzone.jblog.exception"})
+@ComponentScan({"com.douzone.jblog.controller"})
 @Import({MvcConfig.class})
 public class WebConfig {
 

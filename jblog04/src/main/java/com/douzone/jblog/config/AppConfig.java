@@ -9,7 +9,7 @@ import com.douzone.jblog.config.app.MyBatisConfig;
 
 
 @Configuration
-@ComponentScan({"com.douzone.jblog.service, com.douzone.jblog.repository"})
+@ComponentScan({"com.douzone.jblog.service"})
 @Import({DBConfig.class, MyBatisConfig.class})
 public class AppConfig {
 
