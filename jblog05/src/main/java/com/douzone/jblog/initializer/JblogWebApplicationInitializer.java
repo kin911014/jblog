@@ -23,7 +23,7 @@ public class JblogWebApplicationInitializer extends AbstractAnnotationConfigDisp
 
 	@Override
 	protected String[] getServletMappings() {
-		return null;
+		return new String[] {"/"};
 		
 	}
 
