@@ -32,7 +32,7 @@
 		<div id="extra">
 			
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}/images/${blogVo.logo}">
+				<img src="${pageContext.request.contextPath}/assets/images/${blogVo.logo}">
 			</div>
 		</div>
 
