@@ -17,7 +17,8 @@ public class JblogWebApplicationInitializer extends AbstractAnnotationConfigDisp
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return null;
+		// Web Application Context
+		return new Class<?>[] {WebConfig.class};
 	}
 
 	@Override
