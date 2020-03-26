@@ -2,6 +2,7 @@ package com.douzone.jblog.initializer;
 
 import javax.servlet.Filter;
 
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.douzone.jblog.config.AppConfig;
@@ -23,8 +24,15 @@ public class JblogWebApplicationInitializer extends AbstractAnnotationConfigDisp
 
 	@Override
 	protected String[] getServletMappings() {
+		// Servlet Mapping
 		return new String[] {"/"};
 		
+	}
+
+	@Override
+	protected Filter[] getServletFilters() {
+		// filters
+		return new Filter[] {new CharacterEncodingFilter("UTF-8", true)};
 	}
 
 
