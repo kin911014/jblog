@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @PropertySource("classpath:com/douzone/jblog/config/web/properties/fileupload.properties")
 public class FileUploadConfig extends WebMvcConfigurerAdapter {
-
+	
 	@Autowired
 	private Environment env;
 	
@@ -31,6 +31,6 @@ public class FileUploadConfig extends WebMvcConfigurerAdapter {
 	// Mvc Resources(URL Magic Mapping)
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler(env.getProperty("fileupload.resourceMapping")).addResourceLocations(env.getProperty("fileupload.uploadLocation"));
+		registry.addResourceHandler(env.getProperty("fileupload.resourceMapping")).addResourceLocations("file:" + env.getProperty("fileupload.uploadLocation"));
 	}
 }

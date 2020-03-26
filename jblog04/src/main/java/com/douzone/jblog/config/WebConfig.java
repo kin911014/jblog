@@ -12,7 +12,7 @@ import com.douzone.jblog.config.web.MvcConfig;
 @Configuration
 @EnableWebMvc
 @ComponentScan({"com.douzone.jblog.controller"})
-@Import({MvcConfig.class, MessageConfig.class})
+@Import({MvcConfig.class, MessageConfig.class, FileUploadConfig.class})
 public class WebConfig {
 
 }

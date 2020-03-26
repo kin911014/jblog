@@ -24,7 +24,7 @@ import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
 
 @Controller
-@RequestMapping("/{id:(?!assets|images).*}")
+@RequestMapping("/{id:(?!assets).*}")
 public class BlogController {
 	
 	@Autowired

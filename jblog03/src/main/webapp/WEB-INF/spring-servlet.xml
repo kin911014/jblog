@@ -48,6 +48,6 @@
 
 	<!-- mvc resource -->
 	<mvc:resources location="file:/logo/"
-		mapping="/images/**"></mvc:resources>
+		mapping="/assets/images/**"></mvc:resources>
 
 </beans>
