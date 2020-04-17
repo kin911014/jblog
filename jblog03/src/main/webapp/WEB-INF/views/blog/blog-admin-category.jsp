@@ -13,46 +13,50 @@
 <script type="text/javascript">
 var startNo = 0;
 var isEnd = false;
-$(function(){
-	$('#btn-test').click(function(event){
-		event.preventDefault();
-		console.log('click');	
+var list = function(){
+	if(isEnd){
+		return;	
+	}
 		
-		
-		$.ajax({
-			url: '${pageContext.request.contextPath }/${authUser.id}/api/blog/list/' + startNo,
-			async: true,
-			type: 'get',
-			dataType: 'json',
-			data: '',
-			success: function(response){
-				if(response.result != "success"){
-					console.error(response.message);
-					return;
-				}		
-				
-				// rendering
-				$.each(response.data, function(index, vo){
-				var html = 
-					"<tr>" + 
-					"<td>" + vo.no + "</td>" +
-					"<td>" + vo.name + "</td>" +
-					"<td>" + vo.postCount + "</td>" +
-					"<td>" + vo.description + "</td>" + 
-					"<td>" +
-					"</td>";
+	$.ajax({
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/blog/list/' + startNo,
+		async: true,
+		type: 'get',
+		dataType: 'json',
+		data: '',
+		success: function(response){
+			if(response.result != "success"){
+				console.error(response.message);
+				return;
+			}		
+			
+			// rendering
+			$.each(response.data, function(index, vo){
+			var html = 
+				"<tr>" + 
+				"<td>" + vo.no + "</td>" +
+				"<td>" + vo.name + "</td>" +
+				"<td>" + vo.postCount + "</td>" +
+				"<td>" + vo.description + "</td>" + 
+				"<td>" +
+				"</td>";
 					
-					$("#list-category").append(html);
-				});
-				
-				//startNo = ...
-			},
-			error: function(xhr, status, e){
-				console.error(status + ":" + e);
-			}
-		});
+				$("#list-category").append(html);
+			});
+			
+			//startNo = ...
+		},
+		error: function(xhr, status, e){
+			console.error(status + ":" + e);
+		}
 	});
-});
+	
+};
+
+$(function(){
+	// 리스트 가져오기
+	list();
+})
 
 </script>
 
