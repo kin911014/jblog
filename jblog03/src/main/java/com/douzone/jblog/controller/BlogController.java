@@ -203,4 +203,10 @@ public class BlogController {
 		
 		return "redirect:/{id}/blog-admin-write";
 	}
+	
+	@RequestMapping( "/spa" )
+	public String indexSpa( Model model ){
+		return "guestbook/index-spa";
+	}	
+	
 }

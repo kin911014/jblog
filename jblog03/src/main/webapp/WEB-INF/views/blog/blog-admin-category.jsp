@@ -8,6 +8,54 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+var startNo = 0;
+var isEnd = false;
+$(function(){
+	$('#btn-test').click(function(event){
+		event.preventDefault();
+		console.log('click');	
+		
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/blog/list/' + startNo,
+			async: true,
+			type: 'get',
+			dataType: 'json',
+			data: '',
+			success: function(response){
+				if(response.result != "success"){
+					console.error(response.message);
+					return;
+				}		
+				
+				// rendering
+				$.each(response.data, function(index, vo){
+				var html = 
+					"<tr>" + 
+					"<td>" + vo.no + "</td>" +
+					"<td>" + vo.name + "</td>" +
+					"<td>" + vo.postCount + "</td>" +
+					"<td>" + vo.description + "</td>" + 
+					"<td>" +
+					"</td>";
+					
+					$("#list-category").append(html);
+				});
+				
+				//startNo = ...
+			},
+			error: function(xhr, status, e){
+				console.error(status + ":" + e);
+			}
+		});
+	});
+});
+
+</script>
+
 </head>
 <body>
 	<div id="container">
@@ -15,7 +63,7 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<c:import url="/WEB-INF/views/includes/admin-menu.jsp" />
-		      	<table class="admin-cat">
+		      	<table id='list-category' class="admin-cat">
 		      		<tr>
 		      			<th>번호</th>
 		      			<th>카테고리명</th>
@@ -25,8 +73,9 @@
 		      		</tr>
 					
 					<c:forEach var="getValue" items="${getValues }" varStatus="status">
-					<tr>
-						<td>${getValue.no }</td>
+					
+					<!-- <tr> -->
+						<%-- <td>${getValue.no }</td>
 						<td>${getValue.name }</td>
 						<td>${getValue.postCount }</td>
 						<td>${getValue.description }</td>
@@ -37,8 +86,8 @@
 							<img src="${pageContext.request.contextPath}/assets/image/delete.jpg">
 						</a>
 						</c:if>
-						</td>
-					</tr>					  
+						</td> --%>
+					<!-- </tr>	 -->				  
 					</c:forEach>
 				</table>
       	
@@ -56,7 +105,9 @@
 				      		</tr>
 				      		<tr>
 				      			<td><input type="submit" value="카테고리 추가"></td>
-				      		</tr>      		      		
+				      			<td><input type="submit" id='btn-test' value="테스트버튼"></td>
+				      		</tr>
+				      		
 				      	</table> 
 	      			</form>
 			</div>

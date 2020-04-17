@@ -96,6 +96,15 @@ public class BlogService {
 		return map;
 	}
 
+	public List<CategoryVo> findAllByNo(Long startNo) {
+		return blogRepository.findAllByNo(startNo);
+	}
+
+//	public List<BlogVo> findAllByNo(Long startNo) {
+//		return blogRepository.findAllByNo(startNo);
+//		
+//	}
+
 	
  
 }

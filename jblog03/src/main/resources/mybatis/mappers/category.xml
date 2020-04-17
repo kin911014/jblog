@@ -40,4 +40,23 @@
 		where a.id=#{id}
 		]]>
 	</select>
+	<select id="findAllByNo"  parameterType="long" resultType="categoryvo">
+		<![CDATA[			
+		  select no,
+				name,
+				description,
+   				reg_date as regDate,
+  				id
+		  from category
+	  	]]>
+	  	<if test="_parameter > 0">
+			<![CDATA[			
+				where no < #{_parameter}
+		  	]]>
+	  	
+	  	</if>
+		<![CDATA[			
+	    order by no desc;
+	  	]]>
+	</select>
 </mapper>

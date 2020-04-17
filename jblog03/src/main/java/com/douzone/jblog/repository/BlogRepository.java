@@ -86,5 +86,13 @@ public class BlogRepository {
 		return sqlSession.selectList("blog.getblogmainpostlist", vo);
 	}
 
+	public List<CategoryVo> findAllByNo(Long startNo) {
+		return sqlSession.selectList("category.findAllByNo", startNo);
+	}
+
+//	public List<BlogVo> findAllByNo(Long startNo) {
+//		return sqlSession.selectList("blog.findAllByNo", startNo);
+//		
+//	}
 	
 }
