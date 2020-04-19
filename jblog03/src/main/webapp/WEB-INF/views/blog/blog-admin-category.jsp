@@ -60,7 +60,7 @@ var list = function(){
 
 $(function(){
 	
-/* 	// 입력 submit event
+	// 입력 submit event
 	$('#submit-form').submit(function(event){
 		event.preventDefault();
 		console.log("click!");
@@ -68,7 +68,6 @@ $(function(){
 		var vo={};
 		vo.name = $('#input-name').val();
 		vo.description = $('#input-desc').val();
-		vo.id ='${authUser.id}';
 		
 		
 		$.ajax({
@@ -86,30 +85,22 @@ $(function(){
 				console.log(response.data);
 				
 				response.data.contextPath = "${pageContext.request.contextPath }";
-				console.log(response);
-				
-				
 				
 				// rendering
-				$.each(response.data, function(index, vo){
-				var html = 
-					"<tr>" + 
-					"<td>" + vo.no + "</td>" +
-					"<td>" + vo.name + "</td>" +
-					"<td>" + vo.postCount + "</td>" +
-					"<td>" + vo.description.replace(/\n/gi, "<br>") + "</td>" + 
-					"<td>" +
-					"</tr>";
-					
-				$("#list-category").prepend(html);
-			});
+				var lastNum = Number($('#list-category tr:last-child td')[0].innerText)+ 1;
+				response.data.lastNum = lastNum;
+				var html = listItemTemplate.render(response.data);
+				$("#list-category tr").last().after(html);
+				
+				// form reset
+				$("#submit-form")[0].reset();
 				
 			},
 			error: function(xhr, status, e){
 				console.error(status + ":" + e);
 			}
 		});
-	}); */
+	});
 	// 리스트 가져오기
 	list();
 });

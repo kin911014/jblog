@@ -29,8 +29,8 @@ public class BlogController {
 	}
 	
 	@PostMapping("/add")
-	public JsonResult add(@RequestBody CategoryVo vo) {
-//		 System.out.println(vo);
+	public JsonResult add(@PathVariable("id") String id,@RequestBody CategoryVo vo) {
+		vo.setId(id);
 		blogService.categoryInsert(vo);
 		return JsonResult.success(vo);
 	}

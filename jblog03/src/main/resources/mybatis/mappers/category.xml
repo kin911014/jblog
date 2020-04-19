@@ -11,11 +11,11 @@
 		]]>
 	</select>
 	
-	<select id="categoryInsert" parameterType="categoryvo">
+	<insert id="categoryInsert" parameterType="categoryvo">
 		<![CDATA[
 		insert into category values(null, #{name}, #{description}, now(), #{id})
 		]]>
-	</select>
+	</insert>
 	
 	<select id="categoryDelete" parameterType="categoryvo" >
 		<![CDATA[
