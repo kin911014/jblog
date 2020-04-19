@@ -17,11 +17,11 @@
 		]]>
 	</insert>
 	
-	<select id="categoryDelete" parameterType="categoryvo" >
+	<delete id="categoryDelete" parameterType="categoryvo" >
 		<![CDATA[
 		delete from category where no=#{no}
 		]]>
-	</select>
+	</delete>
 	
 	<select id="getCateValueById" parameterType="categoryvo" resultType="categoryvo" >
 		<![CDATA[

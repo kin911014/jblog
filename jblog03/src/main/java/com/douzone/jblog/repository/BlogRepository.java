@@ -47,8 +47,8 @@ public class BlogRepository {
 		
 	}
 
-	public void categoryDelete(CategoryVo categoryVo) {
-		sqlSession.delete("category.categoryDelete", categoryVo);
+	public int categoryDelete(Long no) {
+		return sqlSession.delete("category.categoryDelete", no);
 		
 	}
 

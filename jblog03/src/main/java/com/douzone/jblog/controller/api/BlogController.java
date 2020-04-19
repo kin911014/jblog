@@ -35,4 +35,10 @@ public class BlogController {
 		return JsonResult.success(vo);
 	}
 	
+	@RequestMapping("/delete/{no}")
+	public JsonResult delete(@PathVariable("no")Long no) {
+		boolean result = blogService.categoryDelete(no);
+		return JsonResult.success(result ? no : -1);
+	}
+	
 }

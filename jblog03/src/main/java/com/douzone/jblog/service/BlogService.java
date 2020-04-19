@@ -44,8 +44,10 @@ public class BlogService {
 		
 	}
 
-	public void categoryDelete(CategoryVo categoryVo) {
-		blogRepository.categoryDelete(categoryVo);
+	public boolean categoryDelete(Long no) {
+		int count = blogRepository.categoryDelete(no);
+		System.out.println(count);
+		return count == 1;
 	}
 
 	public List<CategoryVo> getCategoryName() {

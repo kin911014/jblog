@@ -58,6 +58,32 @@ var list = function(){
 	
 };
 
+$(document).on('click', '#list-category a', function(event){
+	event.preventDefault();
+	console.log($(this).data('no'));
+	
+	var deleteNo = $(this).data('no');
+	$(this).parents('tr').remove();
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/blog/delete/' + deleteNo,
+		async: true,
+		type: 'delete',
+		dataType: 'json',
+		data: '',
+		success: function(response){
+			if(response.result != "success"){
+				console.error(response.message);
+				return;
+			}
+		},
+		error: function(xhr, status, e){
+			console.error(status + ":" + e);
+		}
+	});
+	
+});
+
 $(function(){
 	
 	// 입력 submit event
