@@ -40,23 +40,21 @@
 		where a.id=#{id}
 		]]>
 	</select>
-	<select id="findAllByNo"  parameterType="long" resultType="categoryvo">
+	<select id="findAllById"  parameterType="string" resultType="categoryvo">
 		<![CDATA[			
-		  select no,
-				name,
-				description,
-   				reg_date as regDate,
-  				id
-		  from category
-	  	]]>
-	  	<if test="_parameter > 0">
-			<![CDATA[			
-				where no < #{_parameter}
-		  	]]>
-	  	
-	  	</if>
-		<![CDATA[			
-	    order by no desc;
+		select a.no as no,
+			a.name as name,
+			a.description as description,
+			a.reg_date as regDate,
+			a.id as id, 
+			ifnull(b.postCount,0) as postCount
+		 from category a 
+		 left join 
+		(select count(*)as postCount, 
+		category_no 
+		from post group by category_no) b 
+		on a.no= b.category_no
+		where a.id=#{id}
 	  	]]>
 	</select>
 </mapper>

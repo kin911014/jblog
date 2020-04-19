@@ -3,6 +3,7 @@ package com.douzone.jblog.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -96,8 +97,8 @@ public class BlogService {
 		return map;
 	}
 
-	public List<CategoryVo> findAllByNo(Long startNo) {
-		return blogRepository.findAllByNo(startNo);
+	public List<CategoryVo> findAllById(String id) {
+		return blogRepository.findAllById(id);
 	}
 
 //	public List<BlogVo> findAllByNo(Long startNo) {

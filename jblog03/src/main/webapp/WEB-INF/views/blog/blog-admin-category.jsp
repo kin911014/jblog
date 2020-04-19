@@ -1,25 +1,37 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!doctype html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
-
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
+
 <script type="text/javascript">
-var startNo = 0;
 var isEnd = false;
+
+var listTemplate = new EJS({
+	url: "${pageContext.request.contextPath }/assets/js/ejs/list-template.ejs"
+});
+
+var listItemTemplate = new EJS({
+	url: "${pageContext.request.contextPath }/assets/js/ejs/list-item-template.ejs"
+})
+
+
+
 var list = function(){
 	if(isEnd){
 		return;	
 	}
 		
 	$.ajax({
-		url: '${pageContext.request.contextPath }/${authUser.id}/api/blog/list/' + startNo,
+		url: '${pageContext.request.contextPath }/${authUser.id}/api/blog/list/',
 		async: true,
 		type: 'get',
 		dataType: 'json',
@@ -28,21 +40,14 @@ var list = function(){
 			if(response.result != "success"){
 				console.error(response.message);
 				return;
-			}		
+			}
+			console.log(response);
+			response.contextPath = "${pageContext.request.contextPath }";
 			
-			// rendering
-			$.each(response.data, function(index, vo){
-			var html = 
-				"<tr>" + 
-				"<td>" + vo.no + "</td>" +
-				"<td>" + vo.name + "</td>" +
-				"<td>" + vo.postCount + "</td>" +
-				"<td>" + vo.description + "</td>" + 
-				"<td>" +
-				"</td>";
-					
-				$("#list-category").append(html);
-			});
+			var html = listTemplate.render(response);
+			$("#list-category").append(html);
+			
+			startNo = $('#list-category td').last().data('no') || 0;
 			
 			//startNo = ...
 		},
@@ -54,9 +59,60 @@ var list = function(){
 };
 
 $(function(){
+	
+/* 	// 입력 submit event
+	$('#submit-form').submit(function(event){
+		event.preventDefault();
+		console.log("click!");
+		
+		var vo={};
+		vo.name = $('#input-name').val();
+		vo.description = $('#input-desc').val();
+		vo.id ='${authUser.id}';
+		
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath }/${authUser.id}/api/blog/add/',
+			async: true,
+			type: 'post',
+			dataType: "json",
+			contentType: 'application/json',
+			data: JSON.stringify(vo),
+			success: function(response){
+				if(response.result != "success"){
+					console.error(response.message);
+				 	return;
+				} 
+				console.log(response.data);
+				
+				response.data.contextPath = "${pageContext.request.contextPath }";
+				console.log(response);
+				
+				
+				
+				// rendering
+				$.each(response.data, function(index, vo){
+				var html = 
+					"<tr>" + 
+					"<td>" + vo.no + "</td>" +
+					"<td>" + vo.name + "</td>" +
+					"<td>" + vo.postCount + "</td>" +
+					"<td>" + vo.description.replace(/\n/gi, "<br>") + "</td>" + 
+					"<td>" +
+					"</tr>";
+					
+				$("#list-category").prepend(html);
+			});
+				
+			},
+			error: function(xhr, status, e){
+				console.error(status + ":" + e);
+			}
+		});
+	}); */
 	// 리스트 가져오기
 	list();
-})
+});
 
 </script>
 
@@ -67,18 +123,18 @@ $(function(){
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<c:import url="/WEB-INF/views/includes/admin-menu.jsp" />
-		      	<table id='list-category' class="admin-cat">
-		      		<tr>
-		      			<th>번호</th>
-		      			<th>카테고리명</th>
-		      			<th>포스트 수</th>
-		      			<th>설명</th>
-		      			<th>삭제</th>      			
-		      		</tr>
-					
+				<table id='list-category' class="admin-cat">
+					<tr>
+						<th>번호</th>
+						<th>카테고리명</th>
+						<th>포스트 수</th>
+						<th>설명</th>
+						<th>삭제</th>
+					</tr>
+
 					<c:forEach var="getValue" items="${getValues }" varStatus="status">
-					
-					<!-- <tr> -->
+
+						<!-- <tr> -->
 						<%-- <td>${getValue.no }</td>
 						<td>${getValue.name }</td>
 						<td>${getValue.postCount }</td>
@@ -91,29 +147,29 @@ $(function(){
 						</a>
 						</c:if>
 						</td> --%>
-					<!-- </tr>	 -->				  
+						<!-- </tr>	 -->
 					</c:forEach>
 				</table>
-      	
-      			<h4 class="n-c">새로운 카테고리 추가</h4>
-				
-	      		   	<form action="${pageContext.request.contextPath }/${id }/blog-admin-category" method="post">
-				      	<table id="admin-cat-add">
-				      		<tr>
-				      			<td class="t">카테고리명</td>
-				      			<td><input type="text" name="name"></td>
-				      		</tr>
-				      		<tr>
-				      			<td class="t">설명</td>
-				      			<td><input type="text" name="description"></td>
-				      		</tr>
-				      		<tr>
-				      			<td><input type="submit" value="카테고리 추가"></td>
-				      			<td><input type="submit" id='btn-test' value="테스트버튼"></td>
-				      		</tr>
-				      		
-				      	</table> 
-	      			</form>
+
+				<h4 class="n-c">새로운 카테고리 추가</h4>
+
+				<form id='submit-form' action="" method="post">
+					<table id="admin-cat-add">
+						<tr>
+							<td class="t">카테고리명</td>
+							<td><input type="text" id='input-name' name="name"></td>
+						</tr>
+						<tr>
+							<td class="t">설명</td>
+							<td><input type="text" id='input-desc' name="description"></td>
+						</tr>
+						<tr>
+							<td><input  type="submit" value="카테고리 추가"></td>
+							<td><input type="submit" id='btn-test' value="테스트버튼"></td>
+						</tr>
+
+					</table>
+				</form>
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />

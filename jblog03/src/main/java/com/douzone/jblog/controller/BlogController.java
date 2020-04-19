@@ -149,22 +149,22 @@ public class BlogController {
 	}
 	
 	
-	// admin --post category
-	@RequestMapping(value="/blog-admin-category", method=RequestMethod.POST)
-	public String blogAdminCategory(HttpSession session,
-			@PathVariable String id,
-			CategoryVo categoryVo,
-			Model model) {
-		
-		categoryVo.setId(id);
-		blogService.categoryInsert(categoryVo);
-		
-		
-		List<CategoryVo> getValues = blogService.categoryGet(categoryVo);
-		model.addAttribute("getValues", getValues);
-		
-		return "redirect:/{id}/blog-admin-category";
-	}
+//	// admin --post category
+//	@RequestMapping(value="/blog-admin-category", method=RequestMethod.POST)
+//	public String blogAdminCategory(HttpSession session,
+//			@PathVariable String id,
+//			CategoryVo categoryVo,
+//			Model model) {
+//		
+//		categoryVo.setId(id);
+//		blogService.categoryInsert(categoryVo);
+//		
+//		
+//		List<CategoryVo> getValues = blogService.categoryGet(categoryVo);
+//		model.addAttribute("getValues", getValues);
+//		
+//		return "redirect:/{id}/blog-admin-category";
+//	}
 	
 	
 	// admin - delete
