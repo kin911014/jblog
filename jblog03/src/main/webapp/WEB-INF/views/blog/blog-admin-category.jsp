@@ -182,7 +182,6 @@ $(function(){
 						</tr>
 						<tr>
 							<td><input  type="submit" value="카테고리 추가"></td>
-							<td><input type="submit" id='btn-test' value="테스트버튼"></td>
 						</tr>
 
 					</table>
