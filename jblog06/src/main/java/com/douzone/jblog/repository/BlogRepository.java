@@ -2,6 +2,7 @@ package com.douzone.jblog.repository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,8 @@ public class BlogRepository {
 		
 	}
 
-	public void categoryDelete(CategoryVo categoryVo) {
-		sqlSession.delete("category.categoryDelete", categoryVo);
+	public int categoryDelete(Long no) {
+		return sqlSession.delete("category.categoryDelete", no);
 		
 	}
 
@@ -86,5 +87,13 @@ public class BlogRepository {
 		return sqlSession.selectList("blog.getblogmainpostlist", vo);
 	}
 
+	public List<CategoryVo> findAllById(String id) {
+		return sqlSession.selectList("category.findAllById", id);
+	}
+
+//	public List<BlogVo> findAllByNo(Long startNo) {
+//		return sqlSession.selectList("blog.findAllByNo", startNo);
+//		
+//	}
 	
 }
