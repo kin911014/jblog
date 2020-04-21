@@ -1,0 +1,27 @@
+<%
+	for(var i = 0; i < data.length; i++) {
+		var vo = data[i]; 
+%>
+		<tr>
+			<td><%=i+1%></td>
+			<td><%=vo.name%></td>
+			<td><%=vo.postCount%></td>
+			<td><%=vo.description%></td>
+			<td>
+				<%
+					if(vo.postCount == 0){
+				%>
+				<a data-no='<%=vo.no%>' href="" >
+				<img src='<%=contextPath%>/assets/image/delete.jpg'/></a>
+				<%
+					}else{
+				%>
+					<p>포스트가 존재합니다.</p>
+				<%
+					}
+				%>
+			</td>
+		</tr>
+<%
+	}
+%>

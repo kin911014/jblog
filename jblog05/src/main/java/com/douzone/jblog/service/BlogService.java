@@ -3,6 +3,7 @@ package com.douzone.jblog.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,8 +44,10 @@ public class BlogService {
 		
 	}
 
-	public void categoryDelete(CategoryVo categoryVo) {
-		blogRepository.categoryDelete(categoryVo);
+	public boolean categoryDelete(Long no) {
+		int count = blogRepository.categoryDelete(no);
+		System.out.println(count);
+		return count == 1;
 	}
 
 	public List<CategoryVo> getCategoryName() {
@@ -95,6 +98,15 @@ public class BlogService {
 		}
 		return map;
 	}
+
+	public List<CategoryVo> findAllById(String id) {
+		return blogRepository.findAllById(id);
+	}
+
+//	public List<BlogVo> findAllByNo(Long startNo) {
+//		return blogRepository.findAllByNo(startNo);
+//		
+//	}
 
 	
  
