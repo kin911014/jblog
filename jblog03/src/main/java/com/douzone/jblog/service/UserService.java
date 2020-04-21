@@ -11,8 +11,6 @@ import com.douzone.jblog.vo.UserVo;
 public class UserService {
 	@Autowired
 	private UserRepository userRepository; 
-	@Autowired
-	private BlogRepository blogRepository; 
 	
 	public void join(UserVo userVo) {
 		userRepository.join(userVo);
